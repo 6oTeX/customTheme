@@ -16,7 +16,7 @@
 				line-height: _size(element-height);
 				position: absolute;
 				text-align: center;
-				top: 0;
+				top: 5px;
 				width: 2.5em;
 			}
 
@@ -123,14 +123,6 @@
 	}
 
 	input[type="checkbox"],
-	input[type="radio"], {
-		@include vendor('appearance', 'none');
-		display: block;
-		float: left;
-		margin-right: -2em;
-		opacity: 0;
-		width: 1em;
-		z-index: -1;
 
 		& + label {
 			@include icon(false, solid);
@@ -174,7 +166,6 @@
 				box-shadow: 0 0 0 1px _palette(accent);
 			}
 		}
-	}
 
 	input[type="checkbox"] {
 		& + label {

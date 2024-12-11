@@ -1,89 +1,27 @@
-(function($) {
+(function ($) {
+  var $body = $("body"),
+    $menu = $("#menu");
 
-	var	$window = $(window),
-		$body = $('body'),
-		$menu = $('#menu'),
-		$sidebar = $('#sidebar'),
-		$main = $('#main');
+  // Toggle menu visibility when the menu button is clicked
+  $body.on("click", ".fa-bars", function (event) {
+    event.preventDefault();
+    $body.toggleClass("is-menu-visible");
+  });
 
-	// Breakpoints.
-		breakpoints({
-			xlarge:   [ '1281px',  '1680px' ],
-			large:    [ '981px',   '1280px' ],
-			medium:   [ '737px',   '980px'  ],
-			small:    [ '481px',   '736px'  ],
-			xsmall:   [ null,      '480px'  ]
-		});
+  // Hide menu when clicking outside of it
+  $(document).on("click", function (event) {
+    if (
+      $body.hasClass("is-menu-visible") &&
+      !$(event.target).closest("#menu, .fa-bars").length
+    ) {
+      $body.removeClass("is-menu-visible");
+    }
+  });
 
-	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
-
-	// Menu.
-		$menu
-			.appendTo($body)
-			.panel({
-				delay: 500,
-				hideOnClick: true,
-				hideOnSwipe: true,
-				resetScroll: true,
-				resetForms: true,
-				side: 'right',
-				target: $body,
-				visibleClass: 'is-menu-visible'
-			});
-
-	// Search (header).
-		var $search = $('#search'),
-			$search_input = $search.find('input');
-
-		$body
-			.on('click', '[href="#search"]', function(event) {
-
-				event.preventDefault();
-
-				// Not visible?
-					if (!$search.hasClass('visible')) {
-
-						// Reset form.
-							$search[0].reset();
-
-						// Show.
-							$search.addClass('visible');
-
-						// Focus input.
-							$search_input.focus();
-
-					}
-
-			});
-
-		$search_input
-			.on('keydown', function(event) {
-
-				if (event.keyCode == 27)
-					$search_input.blur();
-
-			})
-			.on('blur', function() {
-				window.setTimeout(function() {
-					$search.removeClass('visible');
-				}, 100);
-			});
-
-	// Intro.
-		var $intro = $('#intro');
-
-		// Move to main on <=large, back to sidebar on >large.
-			breakpoints.on('<=large', function() {
-				$intro.prependTo($main);
-			});
-
-			breakpoints.on('>large', function() {
-				$intro.prependTo($sidebar);
-			});
-
+  // Hide menu on Escape key press
+  $(document).on("keydown", function (event) {
+    if (event.key === "Escape" && $body.hasClass("is-menu-visible")) {
+      $body.removeClass("is-menu-visible");
+    }
+  });
 })(jQuery);
