@@ -17,7 +17,9 @@ section, summary, time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  text-decoration: none;
 }
+
 
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -127,7 +129,6 @@ body, input, select, textarea {
 
 a {
   transition: color 0.2s ease, border-bottom-color 0.2s ease;
-  border-bottom: dotted 1px rgba(160, 160, 160, 0.65);
   color: inherit;
   text-decoration: none;
 }
@@ -1366,6 +1367,7 @@ hr.major {
   display: -moz-flex;
   display: -ms-flex;
   display: flex;
+
   -moz-flex-direction: row;
   flex-direction: row;
   -moz-align-items: center;
@@ -1391,7 +1393,7 @@ hr.major {
 .author img {
   border-radius: 100%;
   display: block;
-  width: 4em;
+  width: 4em!important;
 }
 .author:hover .name {
   border-bottom-color: transparent;

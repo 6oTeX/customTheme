@@ -27,7 +27,7 @@
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                         <time class="published" datetime="<?php echo get_the_date('c'); ?>"><?php echo get_the_date(); ?></time>
                         <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>" class="author">
-                            <?php echo get_avatar(get_the_author_meta('ID'), 48); ?>
+                            <?php echo get_avatar(get_the_author_meta('ID'), 40); ?>
                         </a>
                     </header>
                     <a href="<?php the_permalink(); ?>" class="image">

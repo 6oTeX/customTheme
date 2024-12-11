@@ -26,12 +26,13 @@
             </nav>
             <nav class="main">
                 <ul>
-                    <li class="search">
-                        <a class="fa-search" href="#search">Search</a>
-                        <form id="search" method="get" action="<?php echo home_url('/'); ?>">
-                            <input type="text" name="s" placeholder="Search" />
-                        </form>
-                    </li>
+
+                <form class="search" method="get" action="<?php echo home_url('/'); ?>" onsubmit="return false;">
+                    <input type="text" name="s" id="live-search" placeholder="Search" autocomplete="off" />
+                </form>
+                <!-- Container for search results -->
+                <div id="search-results"></div>
+        
                     <li class="menu">
                         <a class="fa-bars" href="#menu">Menu</a>
                     </li>
@@ -42,12 +43,15 @@
         <!-- Menu -->
         <section id="menu">
 
-            <!-- Search -->
-            <section>
-                <form class="search" method="get" action="<?php echo home_url('/'); ?>">
-                    <input type="text" name="s" placeholder="Search" />
-                </form>
-            </section>
+   <!-- Search -->
+<section>
+    <form class="search" method="get" action="<?php echo home_url('/'); ?>" onsubmit="return false;">
+        <input type="text" name="s" id="live-search" placeholder="Search" autocomplete="off" />
+    </form>
+    <!-- Container for search results -->
+    <div id="search-results"></div>
+</section>
+
 
             <!-- Links -->
             <section>
