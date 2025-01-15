@@ -47,22 +47,41 @@
                     <!-- Hamburger menu link -->
                     <li class="menu">
                         <!-- .fa-bars triggers the JS toggle -->
-                        <a href="#menu" class="toggle fa-bars">Open</a>
+                        <a onClick="toggleMenu()" class="fa-bars">
+                            <i class="fa fa-bars
+                                "></i>
+                        </a>
                     </li>
                 </ul>
             </nav>
         </header>
 
-        <!-- SIDEBAR MENU: This is the sliding panel -->
-        <section id="menu">
-            <!-- You can show the same primary menu here, or a different one -->
-            <nav>
+        <!-- Hidden Menu -->
+        <div id="hidden-menu" class="hidden-menu">
+
+            <!-- Search -->
+            <section class="search-form">
+                <form class="search" method="get" action="#">
+                    <input type="text" name="query" placeholder="Search" />
+                </form>
+            </section>
+
+            <!-- Links -->
+            <section>
                 <?php
-          wp_nav_menu(array(
-            'theme_location' => 'primary', // or a different location
+            wp_nav_menu(array(
+            'theme_location' => 'primary', // Reuse the same menu
             'container'      => false,
-            'items_wrap'     => '<ul class="links">%3$s</ul>',
-          ));
-        ?>
-            </nav>
-        </section>
+            'items_wrap'     => '<ul>%3$s</ul>',
+        ));
+                ?>
+            </section>
+
+            <!-- Actions -->
+            <section>
+                <ul class="actions stacked">
+                    <li><a href="#" class="button large fit">Log In</a></li>
+                </ul>
+            </section>
+
+        </div>

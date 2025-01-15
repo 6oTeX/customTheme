@@ -1,7 +1,6 @@
 (function ($) {
   var $window = $(window),
     $body = $("body"),
-    $menu = $("#menu"),
     $sidebar = $("#sidebar"),
     $main = $("#main");
 
@@ -23,29 +22,6 @@
     window.setTimeout(function () {
       $body.removeClass("is-preload");
     }, 100);
-  });
-
-  // -----------------------------------------
-  // 3. Menu (rewritten)
-  // -----------------------------------------
-  // Instead of using .panel(), we'll just listen for a click
-  // on a link referencing "#menu" and toggle a class on #menu itself.
-
-  // Example CSS approach:
-  // #menu { transform: translateX(25em); visibility: hidden; transition: 0.5s; }
-  // #menu.is-menu-visible { transform: translateX(0); visibility: visible; }
-
-  // Whenever a user clicks an element with href="#menu"
-  // we toggle the "is-menu-visible" class on the #menu element.
-  $(document).on("click", '[href="#menu"]', function (event) {
-    event.preventDefault();
-
-    // Toggle the class on #menu
-    if ($menu.hasClass("is-menu-visible")) {
-      $menu.removeClass("is-menu-visible");
-    } else {
-      $menu.addClass("is-menu-visible");
-    }
   });
 
   // -----------------------------------------
@@ -98,3 +74,22 @@
     $intro.prependTo($sidebar);
   });
 })(jQuery);
+
+function toggleMenu() {
+  const menu = document.getElementById("hidden-menu");
+  const overlay = document.getElementById("menu-overlay");
+
+  menu.classList.toggle("active");
+  overlay.classList.toggle("active");
+}
+
+// Close menu when clicking the overlay
+document.addEventListener("DOMContentLoaded", function () {
+  const overlay = document.createElement("div");
+  overlay.id = "menu-overlay";
+  document.body.appendChild(overlay);
+
+  overlay.addEventListener("click", function () {
+    toggleMenu();
+  });
+});
