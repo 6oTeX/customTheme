@@ -1,49 +1,24 @@
 <?php get_header(); ?>
 
-
 <!-- Main -->
+
+
 <div id="main">
 
+    <?php if ( have_posts() ) : ?>
     <?php
-    // Get the current page number
-    $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+        // Show the author's display name or custom introduction
+        if ( is_author() ) {
+            the_post();
+            $author_id = get_the_author_meta('ID');
+            rewind_posts(); // Rewind for the main loop
+            ?>
+    <header>
+        <h2>Posts by <?php echo get_the_author_meta('display_name', $author_id); ?></h2>
+    </header>
+    <?php } ?>
 
-    // Custom query arguments
-    $args = array(
-        'posts_per_page'      => 4,
-        'post_type'           => 'post',
-        'ignore_sticky_posts' => 1,
-        'paged'               => $paged,
-    );
-
-    // The Query
-    $posts_query = new WP_Query($args);
-
-    // Backup original query object
-    global $wp_query;
-    $temp_query = $wp_query;
-    $wp_query   = $posts_query;
-    
-    // The Loop
-    // if search query has post title matching the search query show only the post matching the search query
-    if (is_search() && have_posts()) {
-        while (have_posts()) : the_post();
-
-            // Post
-            get_template_part('content', 'search');
-
-        endwhile;
-    } else {
-        // if search query has no post title matching the search query show all posts
-        if (is_search()) {
-            echo '<h2>Search results for: ' . get_search_query() . '</h2>';
-        }
-    }
-    if ($posts_query->have_posts()) :
-        while ($posts_query->have_posts()) : $posts_query->the_post();
-    ?>
-
-    <!-- Post -->
+    <?php while (have_posts()) : the_post(); ?>
     <article class="post">
         <header>
             <div class="title">
@@ -77,51 +52,25 @@
             <ul class="stats">
                 <li><?php the_category(', '); ?></li>
                 <li><a href="#" class="icon solid fa-heart">28</a></li>
-                <li><a href="<?php comments_link(); ?>" class="icon solid fa-comment">
+                <li>
+                    <a href="<?php comments_link(); ?>" class="icon solid fa-comment">
                         <?php comments_number('0', '1', '%'); ?>
-                    </a></li>
+                    </a>
+                </li>
             </ul>
         </footer>
     </article>
+    <?php endwhile; ?>
 
-    <?php
-        endwhile;
-    ?>
-
-    <!-- Pagination -->
+    <!-- Pagination (optional) -->
     <ul class="actions pagination">
-        <!-- Previous Page Link -->
-        <li>
-            <?php if (get_previous_posts_link()) : ?>
-            <?php previous_posts_link('<span class="button large previous">Previous Page</span>'); ?>
-            <?php else : ?>
-            <span class="disabled button large previous">Previous Page</span>
-            <?php endif; ?>
-        </li>
-
-        <!-- Next Page Link -->
-        <li>
-            <?php if (get_next_posts_link()) : ?>
-            <?php next_posts_link('<span class="button large next">Next Page</span>'); ?>
-            <?php else : ?>
-            <span class="disabled button large next">Next Page</span>
-            <?php endif; ?>
-        </li>
+        <li><?php previous_posts_link('<span class="button large previous">Previous Page</span>'); ?></li>
+        <li><?php next_posts_link('<span class="button large next">Next Page</span>'); ?></li>
     </ul>
 
-    <?php
-    else :
-    ?>
+    <?php else : ?>
     <p>No posts found.</p>
     <?php endif; ?>
-
-    <?php
-    // Reset post data
-    wp_reset_postdata();
-
-    // Restore original query
-    $wp_query = $temp_query;
-    ?>
 
 </div>
 

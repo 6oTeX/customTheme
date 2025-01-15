@@ -2903,23 +2903,23 @@ body.single #footer {
   text-align: center;
 }
 
-/* Menu */
 #menu {
-  transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
-  background: #ffffff;
+  /* Start hidden off-canvas */
+  transform: translateX(25em);
+  visibility: hidden;
+  transition: transform 0.5s ease, visibility 0.5s;
   position: fixed;
-  top: 0;
   right: 0;
-  width: 300px;
-  height: 100%;
-  overflow-y: auto;
-  z-index: 1000;
-  padding: 1em;
+  top: 0;
+  bottom: 0; /* if you want full-height panel */
+  width: 25em;
+  background: #fff; /* or your color */
+  z-index: 10002;
 }
 
-body.is-menu-visible #menu {
+#menu.is-menu-visible {
   transform: translateX(0);
+  visibility: visible;
 }
 
 #menu .links li {
