@@ -4,7 +4,9 @@
 
 
 <div id="main">
-
+    <?php
+    echo do_shortcode('[spc_create_post_form]');
+    ?>
     <?php if ( have_posts() ) : ?>
     <?php
         // Show the author's display name or custom introduction
